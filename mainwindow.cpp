@@ -10,6 +10,10 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    telemetry_window = new TelemetryWindow();
+    configuration_window = new ConfigurationWindow();
+    joystick_steering_window = new JoystickSteeringWindow();
+    manual_steering_window = new ManualSteeringWindow();
 
     this->discoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
     this->socket = new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol, this);
@@ -105,3 +109,23 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+
+void MainWindow::on_pushButtonTelemetry_clicked()
+{
+    this->telemetry_window->show();
+}
+
+void MainWindow::on_pushButtonSteeringJoystick_clicked()
+{
+    this->joystick_steering_window->show();
+}
+
+void MainWindow::on_pushButtonConfig_clicked()
+{
+    this->configuration_window->show();
+}
+
+void MainWindow::on_pushButtonSteeringManual_clicked()
+{
+    this->manual_steering_window->show();
+}

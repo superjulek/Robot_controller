@@ -5,6 +5,11 @@
 #include <QBluetoothDeviceDiscoveryAgent>
 #include <QBluetoothSocket>
 
+#include <telemetrywindow.h>
+#include <configurationwindow.h>
+#include <joysticksteeringwindow.h>
+#include <manualsteeringwindow.h>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -27,8 +32,21 @@ private slots:
     void connectionEstablished();
     void connectionInterrupted();
     void socketReadyToRead();
+    void on_pushButtonTelemetry_clicked();
+
+    void on_pushButtonSteeringJoystick_clicked();
+
+    void on_pushButtonConfig_clicked();
+
+    void on_pushButtonSteeringManual_clicked();
+
 private:
     Ui::MainWindow *ui;
+    TelemetryWindow *telemetry_window;
+    ConfigurationWindow *configuration_window;
+    JoystickSteeringWindow *joystick_steering_window;
+    ManualSteeringWindow *manual_steering_window;
+
     QBluetoothDeviceDiscoveryAgent *discoveryAgent;
     QBluetoothSocket *socket;
     void addToLogs(QString message);
