@@ -42,6 +42,9 @@ private slots:
 
     void on_pushButtonSteeringManual_clicked();
 
+    void parsedTelemetry(Telemetry);
+    void parsedMessage(QString);
+
 private:
     Ui::MainWindow *ui;
     TelemetryWindow *telemetry_window;

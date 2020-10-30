@@ -22,10 +22,22 @@ void BluetoothCommunicator::parseReceivedBuffer(QByteArray buffer)
             qDebug() << "Telemetria niekompletna";
             return;
         }
-        memcpy(&(this->current_telemetry.TargetAngle), buffer.constData() + offsetof(Telemetry, TargetAngle) + 1, 4);
-        memcpy(&(this->current_telemetry.Angle), buffer.constData() + offsetof(Telemetry, Angle) + 1, 4);
-        qDebug() << "TA = " << this->current_telemetry.TargetAngle;
-        qDebug() << "A = " << this->current_telemetry.Angle;
+        Telemetry new_telemetry;
+        memcpy(&new_telemetry, buffer.constData() + 1, sizeof(Telemetry));
+        qDebug() << "TA = " << new_telemetry.TargetAngle;
+        qDebug() << "A = " << new_telemetry.Angle;
+        qDebug() << "TS = " << new_telemetry.TargetSpeed;
+        qDebug() << "S = " << new_telemetry.Speed;
+        qDebug() << "B = " << new_telemetry.Battery;
 
+        emit parsedTelemetry(new_telemetry);
+
+    }
+    else
+    {
+        QString message = QString(buffer);
+        qDebug() << message;
+
+        emit parsedMessage(message);
     }
 }

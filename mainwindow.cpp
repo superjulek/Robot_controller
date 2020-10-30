@@ -24,6 +24,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this->socket, SIGNAL(connected()),this, SLOT(connectionEstablished()));
     connect(this->socket, SIGNAL(disconnected()),this, SLOT(connectionInterrupted()));
     connect(this->socket, SIGNAL(readyRead()),this, SLOT(socketReadyToRead()));
+    connect(this->bluetooth_communicator, SIGNAL(parsedTelemetry(Telemetry)), this, SLOT(parsedTelemetry(Telemetry)));
+    connect(this->bluetooth_communicator, SIGNAL(parsedMessage(QString)), this, SLOT(parsedMessage(QString)));
+
+    connect(this->bluetooth_communicator, SIGNAL(parsedTelemetry(Telemetry)), this->telemetry_window, SLOT(parsedTelemetry(Telemetry)));
 }
 
 void MainWindow::on_pushButtonConnect_clicked()
@@ -124,4 +128,14 @@ void MainWindow::on_pushButtonConfig_clicked()
 void MainWindow::on_pushButtonSteeringManual_clicked()
 {
     this->manual_steering_window->show();
+}
+
+void MainWindow::parsedTelemetry(Telemetry)
+{
+    this->addToLogs("Otrzymano telemetrie");
+}
+
+void MainWindow::parsedMessage(QString message)
+{
+    this->addToLogs((message));
 }

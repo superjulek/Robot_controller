@@ -8,15 +8,21 @@
 struct Telemetry {
     float TargetAngle;
     float Angle;
+    float TargetSpeed;
+    float Speed;
+    float Battery;
 };
 
-class BluetoothCommunicator
+class BluetoothCommunicator : public QWidget
 {
+    Q_OBJECT
 public:
-    BluetoothCommunicator();
+    explicit BluetoothCommunicator();
     void parseReceivedBuffer(QByteArray buffer);
    private:
-    Telemetry current_telemetry;
+signals:
+    void parsedTelemetry (Telemetry new_telemetry);
+    void parsedMessage (QString message);
 };
 
 #endif // BLUETOOTHCOMMUNICATOR_H
