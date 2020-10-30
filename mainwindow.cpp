@@ -1,9 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "joypad.h"
 
 #include <QDebug>
 #include <QDateTime>
-#include "joypad.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     this->discoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
     this->socket = new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol, this);
+    this->bluetooth_communicator = new BluetoothCommunicator();
+
     connect(this->discoveryAgent, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)), this, SLOT(captureDeviceProperties(QBluetoothDeviceInfo)));
     connect(this->discoveryAgent, SIGNAL(finished()),this, SLOT(searchingFinished()));
     connect(this->socket, SIGNAL(connected()),this, SLOT(connectionEstablished()));
@@ -81,15 +83,9 @@ void MainWindow::connectionInterrupted() {
 }
 
 void MainWindow::socketReadyToRead() {
-  this->addToLogs("Odczytuje dane.");
-    while(this->socket->canReadLine()) {
-        QString line = this->socket->readLine();
-
-        QString terminator = "\n";
-        int pos = line.lastIndexOf(terminator);
-
-        this->addToLogs(line.left(pos));
-      }
+    this->addToLogs("Odczytuje dane.");
+    QByteArray rbuff = this->socket->readAll();
+    this->bluetooth_communicator->parseReceivedBuffer(rbuff);
 }
 
 void MainWindow::sendMessageToDevice(QByteArray message)

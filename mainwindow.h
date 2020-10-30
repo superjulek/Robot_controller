@@ -10,6 +10,8 @@
 #include <joysticksteeringwindow.h>
 #include <manualsteeringwindow.h>
 
+#include "bluetoothcommunicator.h"
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -49,6 +51,7 @@ private:
 
     QBluetoothDeviceDiscoveryAgent *discoveryAgent;
     QBluetoothSocket *socket;
+    BluetoothCommunicator *bluetooth_communicator;
     void addToLogs(QString message);
     void sendMessageToDevice(QByteArray message);
 };
