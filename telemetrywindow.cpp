@@ -36,7 +36,7 @@ void TelemetryWindow::keyPressEvent(QKeyEvent *event)
 
 void TelemetryWindow::parsedTelemetry(Telemetry new_telemetry)
 {
-    this->ui->progressBarBattery->setValue(new_telemetry.Battery);
+    this->ui->progressBarBattery->setValue(new_telemetry.Battery * 100);
     this->ui->progressBarTargetAngle->setValue(new_telemetry.TargetAngle * 1000);
     this->ui->progressBarAngle->setValue(new_telemetry.Angle * 1000);
     this->ui->progressBarTargetSpeed->setValue(new_telemetry.TargetSpeed);

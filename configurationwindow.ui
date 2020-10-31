@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>1200</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -44,7 +44,7 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <layout class="QVBoxLayout" name="verticalLayout_4">
            <item>
             <widget class="QGroupBox" name="groupBox_3">
              <property name="title">
@@ -53,6 +53,27 @@
              <layout class="QGridLayout" name="gridLayout_3">
               <item row="0" column="0">
                <widget class="QDoubleSpinBox" name="doubleSpinBoxAngleKp">
+                <property name="enabled">
+                 <bool>true</bool>
+                </property>
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="sizeIncrement">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="baseSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
                 <property name="buttonSymbols">
                  <enum>QAbstractSpinBox::UpDownArrows</enum>
                 </property>
@@ -115,7 +136,7 @@
            <item>
             <widget class="QPushButton" name="pushButtonAngleRefresh">
              <property name="text">
-              <string>Aktualizuj</string>
+              <string>Pobierz</string>
              </property>
             </widget>
            </item>
@@ -134,8 +155,80 @@
       <item>
        <widget class="QGroupBox" name="groupBox_2">
         <property name="title">
-         <string>PID kontrolujący kąt</string>
+         <string>PID kontrolujący prędkość</string>
         </property>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QGroupBox" name="groupBox_8">
+             <property name="title">
+              <string>Kp</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_2">
+              <item row="0" column="0">
+               <widget class="QDoubleSpinBox" name="doubleSpinBoxSpeedKp">
+                <property name="decimals">
+                 <number>7</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_7">
+             <property name="title">
+              <string>Ki</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_6">
+              <item row="0" column="0">
+               <widget class="QDoubleSpinBox" name="doubleSpinBoxSpeedKi">
+                <property name="decimals">
+                 <number>7</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_6">
+             <property name="title">
+              <string>Kd</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_7">
+              <item row="0" column="0">
+               <widget class="QDoubleSpinBox" name="doubleSpinBoxSpeedKd">
+                <property name="decimals">
+                 <number>7</number>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QPushButton" name="pushButtonSpeedRefresh">
+             <property name="text">
+              <string>Pobierz</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButtonSpeedSend">
+             <property name="text">
+              <string>Wyślij</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
        </widget>
       </item>
       <item>

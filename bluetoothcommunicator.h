@@ -42,6 +42,9 @@ signals:
 
 public slots:
     void requestAnglePID();
+    void requestSpeedPID();
+    void updateAnglePID(PID_Coefs coefs);
+    void updateSpeedPID(PID_Coefs coefs);
 };
 
 #endif // BLUETOOTHCOMMUNICATOR_H

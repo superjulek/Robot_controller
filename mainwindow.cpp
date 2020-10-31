@@ -30,9 +30,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this->bluetooth_communicator, SIGNAL(parsedMessage(QString)), this, SLOT(parsedMessage(QString)));
     connect(this->bluetooth_communicator, SIGNAL(parsedTelemetry(Telemetry)), this->telemetry_window, SLOT(parsedTelemetry(Telemetry)));
     connect(this->bluetooth_communicator, SIGNAL(messageToSend(QByteArray)), this, SLOT(sendMessageToDevice(QByteArray)));
+    connect(this->bluetooth_communicator, SIGNAL(parsedAnglePID(PID_Coefs)), this->configuration_window, SLOT(parsedAnglePID(PID_Coefs)));
+    connect(this->bluetooth_communicator, SIGNAL(parsedSpeedPID(PID_Coefs)), this->configuration_window, SLOT(parsedSpeedPID(PID_Coefs)));
 
     connect(this->configuration_window, SIGNAL(requestAnglePID()), this->bluetooth_communicator, SLOT(requestAnglePID()));
-    connect(this->bluetooth_communicator, SIGNAL(parsedAnglePID(PID_Coefs)), this->configuration_window, SLOT(parsedAnglePID(PID_Coefs)));
+    connect(this->configuration_window, SIGNAL(requestSpeedPID()), this->bluetooth_communicator, SLOT(requestSpeedPID()));
+    connect(this->configuration_window, SIGNAL(updateAnglePID(PID_Coefs)), this->bluetooth_communicator, SLOT(updateAnglePID(PID_Coefs)));
+    connect(this->configuration_window, SIGNAL(updateSpeedPID(PID_Coefs)), this->bluetooth_communicator, SLOT(updateSpeedPID(PID_Coefs)));
 }
 
 void MainWindow::on_pushButtonConnect_clicked()
@@ -87,13 +91,13 @@ void MainWindow::connectionInterrupted() {
 void MainWindow::socketReadyToRead() {
     this->addToLogs("Odczytuje dane.");
     QByteArray rbuff = this->socket->readAll();
-    qDebug() << "Odczytano: " << rbuff << Qt::endl;
+    //qDebug() << "Odczytano: " << rbuff << Qt::endl;
     this->bluetooth_communicator->parseReceivedBuffer(rbuff);
 }
 
 void MainWindow::sendMessageToDevice(QByteArray message)
 {
-    qDebug() << "Proba wyslania: " << message <<Qt::endl;
+    //qDebug() << "Proba wyslania: " << message <<Qt::endl;
     if (this->socket->isOpen() && this->socket->isWritable())
     {
         this->addToLogs("Wysyłanie wiadomości: " + message);

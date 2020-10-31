@@ -12,6 +12,8 @@
 #define STOP_SIGN                   0x02
 #define START_SIGN                  0x03
 #define RESTART_SIGN                0x04
+#define SET_ANGLE_PID_COEFS_SIGN    0x05
+#define SET_SPEED_PID_COEFS_SIGN    0x06
 
 BluetoothCommunicator::BluetoothCommunicator()
 {
@@ -37,12 +39,6 @@ void BluetoothCommunicator::parseReceivedBuffer(QByteArray buffer)
         }
         Telemetry new_telemetry;
         memcpy(&new_telemetry, buffer.constData() + 1, sizeof(Telemetry));
-        //qDebug() << "TA = " << new_telemetry.TargetAngle;
-        //qDebug() << "A = " << new_telemetry.Angle;
-        //qDebug() << "TS = " << new_telemetry.TargetSpeed;
-        //qDebug() << "S = " << new_telemetry.Speed;
-        //qDebug() << "B = " << new_telemetry.Battery;
-
         emit parsedTelemetry(new_telemetry);
         break;
 
@@ -60,11 +56,23 @@ void BluetoothCommunicator::parseReceivedBuffer(QByteArray buffer)
         emit parsedAnglePID(coefs);
         break;
     }
+    case SPEED_PID_COEFS_SIGN:
+    {
+        qDebug() << "Odebrano wsp. PID prędkości";
+        if(uint(buffer.size()) != sizeof(PID_Coefs) + 1)
+        {
+            qDebug() << "Wsp. PID prędkości niekompletne";
+            return;
+        }
+        PID_Coefs coefs;
+        memcpy(&coefs, buffer.constData() + 1, sizeof(PID_Coefs));
+        emit parsedSpeedPID(coefs);
+        break;
+    }
     default:
     {
         QString message = QString(buffer);
         qDebug() << message;
-
         emit parsedMessage(message);
         break;
     }
@@ -79,6 +87,36 @@ void BluetoothCommunicator::requestAnglePID()
     message.data[0] = 0.;
     message.data[1] = 0.;
     message.data[2] = 0.;
+    this->prepareMessageToSend(message);
+}
+
+void BluetoothCommunicator::requestSpeedPID()
+{
+    MessageStructure message;
+    message.sign = GET_SPEED_PID_COEFS_SIGN;
+    message.data[0] = 0.;
+    message.data[1] = 0.;
+    message.data[2] = 0.;
+    this->prepareMessageToSend(message);
+}
+
+void BluetoothCommunicator::updateAnglePID(PID_Coefs coefs)
+{
+    MessageStructure message;
+    message.sign = SET_ANGLE_PID_COEFS_SIGN;
+    message.data[0] = coefs.Kp;
+    message.data[1] = coefs.Ki;
+    message.data[2] = coefs.Kd;
+    this->prepareMessageToSend(message);
+}
+
+void BluetoothCommunicator::updateSpeedPID(PID_Coefs coefs)
+{
+    MessageStructure message;
+    message.sign = SET_SPEED_PID_COEFS_SIGN;
+    message.data[0] = coefs.Kp;
+    message.data[1] = coefs.Ki;
+    message.data[2] = coefs.Kd;
     this->prepareMessageToSend(message);
 }
 
