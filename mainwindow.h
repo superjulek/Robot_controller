@@ -28,7 +28,6 @@ private slots:
     void on_pushButtonCloseConnection_clicked();
     void on_pushButtonSearch_clicked();
     void on_pushButtonClear_clicked();
-    void on_pushButtonStart_clicked();
     void captureDeviceProperties(const QBluetoothDeviceInfo &device);
     void searchingFinished();
     void connectionEstablished();
@@ -44,6 +43,7 @@ private slots:
 
     void parsedTelemetry(Telemetry);
     void parsedMessage(QString);
+    void sendMessageToDevice(QByteArray message);
 
 private:
     Ui::MainWindow *ui;
@@ -56,6 +56,5 @@ private:
     QBluetoothSocket *socket;
     BluetoothCommunicator *bluetooth_communicator;
     void addToLogs(QString message);
-    void sendMessageToDevice(QByteArray message);
 };
 #endif // MAINWINDOW_H

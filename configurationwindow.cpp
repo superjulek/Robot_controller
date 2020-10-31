@@ -27,3 +27,16 @@ void ConfigurationWindow::keyPressEvent(QKeyEvent *event)
         this->hide();
     }
 }
+
+void ConfigurationWindow::on_pushButtonAngleRefresh_clicked()
+{
+    emit requestAnglePID();
+}
+
+
+void ConfigurationWindow::parsedAnglePID(PID_Coefs coefs)
+{
+    this->ui->doubleSpinBoxAngleKp->setValue(coefs.Kp);
+    this->ui->doubleSpinBoxAngleKi->setValue(coefs.Ki);
+    this->ui->doubleSpinBoxAngleKd->setValue(coefs.Kd);
+}

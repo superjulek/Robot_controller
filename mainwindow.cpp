@@ -21,13 +21,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(this->discoveryAgent, SIGNAL(deviceDiscovered(QBluetoothDeviceInfo)), this, SLOT(captureDeviceProperties(QBluetoothDeviceInfo)));
     connect(this->discoveryAgent, SIGNAL(finished()),this, SLOT(searchingFinished()));
+
     connect(this->socket, SIGNAL(connected()),this, SLOT(connectionEstablished()));
     connect(this->socket, SIGNAL(disconnected()),this, SLOT(connectionInterrupted()));
     connect(this->socket, SIGNAL(readyRead()),this, SLOT(socketReadyToRead()));
+
     connect(this->bluetooth_communicator, SIGNAL(parsedTelemetry(Telemetry)), this, SLOT(parsedTelemetry(Telemetry)));
     connect(this->bluetooth_communicator, SIGNAL(parsedMessage(QString)), this, SLOT(parsedMessage(QString)));
-
     connect(this->bluetooth_communicator, SIGNAL(parsedTelemetry(Telemetry)), this->telemetry_window, SLOT(parsedTelemetry(Telemetry)));
+    connect(this->bluetooth_communicator, SIGNAL(messageToSend(QByteArray)), this, SLOT(sendMessageToDevice(QByteArray)));
+
+    connect(this->configuration_window, SIGNAL(requestAnglePID()), this->bluetooth_communicator, SLOT(requestAnglePID()));
+    connect(this->bluetooth_communicator, SIGNAL(parsedAnglePID(PID_Coefs)), this->configuration_window, SLOT(parsedAnglePID(PID_Coefs)));
 }
 
 void MainWindow::on_pushButtonConnect_clicked()
@@ -59,13 +64,6 @@ void MainWindow::on_pushButtonClear_clicked()
     ui->textEditLogs->clear();
     this->addToLogs("Wyczyszczono.");
 }
-void MainWindow::on_pushButtonStart_clicked()
-{
-    QByteArray ba;
-    ba.resize(1);
-    ba[0] = 0x2;
-    this->sendMessageToDevice(ba);
-}
 void MainWindow::captureDeviceProperties(const QBluetoothDeviceInfo &device)
 {
     ui->comboBoxDevices->addItem(device.name() + " " + device.address().toString());
@@ -89,11 +87,13 @@ void MainWindow::connectionInterrupted() {
 void MainWindow::socketReadyToRead() {
     this->addToLogs("Odczytuje dane.");
     QByteArray rbuff = this->socket->readAll();
+    qDebug() << "Odczytano: " << rbuff << Qt::endl;
     this->bluetooth_communicator->parseReceivedBuffer(rbuff);
 }
 
 void MainWindow::sendMessageToDevice(QByteArray message)
 {
+    qDebug() << "Proba wyslania: " << message <<Qt::endl;
     if (this->socket->isOpen() && this->socket->isWritable())
     {
         this->addToLogs("Wysyłanie wiadomości: " + message);
