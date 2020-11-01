@@ -41,9 +41,12 @@ private slots:
 
     void on_pushButtonSteeringManual_clicked();
 
-    void parsedTelemetry(Telemetry);
     void parsedMessage(QString);
     void sendMessageToDevice(QByteArray message);
+
+    void on_pushButtonClearCommunication_clicked();
+
+    void messageToLog(QString message);
 
 private:
     Ui::MainWindow *ui;
@@ -56,5 +59,6 @@ private:
     QBluetoothSocket *socket;
     BluetoothCommunicator *bluetooth_communicator;
     void addToLogs(QString message);
+    void addToCommunicationLogs(QString message);
 };
 #endif // MAINWINDOW_H

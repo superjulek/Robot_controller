@@ -5,6 +5,8 @@
 #define TELEMETRY_SIGN          0b10000001
 #define ANGLE_PID_COEFS_SIGN    0b10000010
 #define SPEED_PID_COEFS_SIGN    0b10000011
+#define MANUAL_SPEEDS_SIGN      0b10000100
+#define JOYSTICK_SPEEDS_SIGN    0b10000101
 
 //Communication signs - controller -> robot
 #define GET_ANGLE_PID_COEFS_SIGN    0x00
@@ -28,17 +30,17 @@ void BluetoothCommunicator::parseReceivedBuffer(QByteArray buffer)
 {
     if (buffer.size() < 1)
     {
-        qDebug() << "Odebrano pusty bufor";
+        this->messageToLog("Odebrano pusty bufor");
         return;
     }
     switch ((uint8_t)buffer[0])
     {
         case TELEMETRY_SIGN:
     {
-        qDebug() << "Odebrano telemetrie";
+        this->messageToLog("Odebrano telemetrie");
         if ((uint)buffer.size() != sizeof(Telemetry) + 1)
         {
-            qDebug() << "Telemetria niekompletna";
+            this->messageToLog("Telemetria niekompletna");
             return;
         }
         Telemetry new_telemetry;
@@ -52,7 +54,7 @@ void BluetoothCommunicator::parseReceivedBuffer(QByteArray buffer)
         qDebug() << "Odebrano wsp. PID kąta";
         if(uint(buffer.size()) != sizeof(PID_Coefs) + 1)
         {
-            qDebug() << "Wsp. PID kąta niekompletne";
+            this->messageToLog("Wsp. PID kąta niekompletne");
             return;
         }
         PID_Coefs coefs;
@@ -62,10 +64,10 @@ void BluetoothCommunicator::parseReceivedBuffer(QByteArray buffer)
     }
     case SPEED_PID_COEFS_SIGN:
     {
-        qDebug() << "Odebrano wsp. PID prędkości";
+        this->messageToLog("Odebrano wsp. PID prędkości");
         if(uint(buffer.size()) != sizeof(PID_Coefs) + 1)
         {
-            qDebug() << "Wsp. PID prędkości niekompletne";
+            this->messageToLog("Wsp. PID prędkości niekompletne");
             return;
         }
         PID_Coefs coefs;
@@ -73,10 +75,33 @@ void BluetoothCommunicator::parseReceivedBuffer(QByteArray buffer)
         emit parsedSpeedPID(coefs);
         break;
     }
+    case MANUAL_SPEEDS_SIGN:
+    {
+        this->messageToLog("Odebrano manualne prędkości");
+        if(uint(buffer.size()) != sizeof(Speeds) + 1)
+        {
+            this->messageToLog("Manualne prędkości niekompletne");
+        }
+        Speeds speeds;
+        memcpy(&speeds, buffer.constData() + 1, sizeof (Speeds));
+        emit parsedManualSpeeds(speeds);
+        break;
+    }
+    case JOYSTICK_SPEEDS_SIGN:
+    {
+        this->messageToLog("Odebrano joystickowe prędkości");
+        if(uint(buffer.size()) != sizeof(Speeds) + 1)
+        {
+            this->messageToLog("Joystickowe prędkości niekompletne");
+        }
+        Speeds speeds;
+        memcpy(&speeds, buffer.constData() + 1, sizeof (Speeds));
+        emit parsedJoystickSpeeds(speeds);
+        break;
+    }
     default:
     {
         QString message = QString(buffer);
-        qDebug() << message;
         emit parsedMessage(message);
         break;
     }
@@ -121,6 +146,46 @@ void BluetoothCommunicator::updateSpeedPID(PID_Coefs coefs)
     message.data[0] = coefs.Kp;
     message.data[1] = coefs.Ki;
     message.data[2] = coefs.Kd;
+    this->prepareMessageToSend(message);
+}
+
+void BluetoothCommunicator::requestManualSpeeds()
+{
+    MessageStructure message;
+    message.sign = GET_MANUAL_SPEED;
+    message.data[0] = 0.;
+    message.data[1] = 0.;
+    message.data[2] = 0.;
+    this->prepareMessageToSend(message);
+}
+
+void BluetoothCommunicator::requestJoystickSpeeds()
+{
+    MessageStructure message;
+    message.sign = GET_JOYSTICK_SPEED;
+    message.data[0] = 0.;
+    message.data[1] = 0.;
+    message.data[2] = 0.;
+    this->prepareMessageToSend(message);
+}
+
+void BluetoothCommunicator::updateManualSpeeds(Speeds speeds)
+{
+    MessageStructure message;
+    message.sign = SET_MANUAL_SPEED;
+    message.data[0] = speeds.driving_speed;
+    message.data[1] = speeds.turning_speed;
+    message.data[2] = 0.;
+    this->prepareMessageToSend(message);
+}
+
+void BluetoothCommunicator::updateJoystickSpeeds(Speeds speeds)
+{
+    MessageStructure message;
+    message.sign = SET_JOYSTICK_SPEED;
+    message.data[0] = speeds.driving_speed;
+    message.data[1] = speeds.turning_speed;
+    message.data[2] = 0.;
     this->prepareMessageToSend(message);
 }
 

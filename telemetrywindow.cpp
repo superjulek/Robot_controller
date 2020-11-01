@@ -39,8 +39,10 @@ void TelemetryWindow::parsedTelemetry(Telemetry new_telemetry)
     this->ui->progressBarBattery->setValue(new_telemetry.Battery * 100);
     this->ui->progressBarTargetAngle->setValue(new_telemetry.TargetAngle * 1000);
     this->ui->progressBarAngle->setValue(new_telemetry.Angle * 1000);
+    this->ui->progressBarDiffAngle->setValue((new_telemetry.Angle - new_telemetry.TargetAngle) * 1000);
     this->ui->progressBarTargetSpeed->setValue(new_telemetry.TargetSpeed);
     this->ui->progressBarSpeed->setValue(new_telemetry.Speed);
+    this->ui->progressBarDiffSpeed->setValue(new_telemetry.Speed - new_telemetry.TargetSpeed);
     if (this->file_opened)
     {
         QTextStream stream(this->file);

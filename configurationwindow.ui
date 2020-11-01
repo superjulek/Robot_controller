@@ -17,6 +17,13 @@
    <layout class="QGridLayout" name="gridLayout">
     <item row="0" column="0">
      <layout class="QVBoxLayout" name="verticalLayout">
+      <item alignment="Qt::AlignHCenter">
+       <widget class="QLabel" name="label_11">
+        <property name="text">
+         <string>Konfiguracja</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <spacer name="verticalSpacer">
         <property name="orientation">
@@ -41,20 +48,34 @@
            <item row="0" column="0">
             <widget class="QLabel" name="label_2">
              <property name="text">
-              <string>Prędkość przód / tył</string>
+              <string>Prędkość przód / tył [mrps]</string>
              </property>
             </widget>
            </item>
            <item row="0" column="1">
-            <widget class="QDoubleSpinBox" name="doubleSpinBox_2"/>
+            <widget class="QDoubleSpinBox" name="doubleSpinBoxManualSpeedDriving">
+             <property name="maximum">
+              <double>400000.000000000000000</double>
+             </property>
+             <property name="stepType">
+              <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+             </property>
+            </widget>
            </item>
            <item row="1" column="1">
-            <widget class="QDoubleSpinBox" name="doubleSpinBox"/>
+            <widget class="QDoubleSpinBox" name="doubleSpinBoxManualSpeedTurning">
+             <property name="maximum">
+              <double>100000.000000000000000</double>
+             </property>
+             <property name="stepType">
+              <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+             </property>
+            </widget>
            </item>
            <item row="1" column="0">
             <widget class="QLabel" name="label">
              <property name="text">
-              <string>Prędkość lewo / prawo</string>
+              <string>Prędkość lewo / prawo [mrps]</string>
              </property>
             </widget>
            </item>
@@ -63,14 +84,14 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="pushButtonManualSpeedsRefresh">
              <property name="text">
               <string>Pobierz</string>
              </property>
             </widget>
            </item>
            <item>
-            <widget class="QPushButton" name="pushButton_2">
+            <widget class="QPushButton" name="pushButtonManualSpeedsSend">
              <property name="text">
               <string>Wyślij</string>
              </property>
@@ -82,101 +103,160 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox">
+       <widget class="QGroupBox" name="groupBox_2">
         <property name="title">
-         <string>PID kontrolujący kąt</string>
+         <string>Prędkość joystickowa</string>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_3">
+        <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_4">
-           <item>
-            <widget class="QGroupBox" name="groupBox_3">
-             <property name="title">
-              <string>Kp</string>
+          <layout class="QGridLayout" name="gridLayout_4">
+           <item row="0" column="1">
+            <widget class="QDoubleSpinBox" name="doubleSpinBoxJoystickSpeedDriving">
+             <property name="maximum">
+              <double>400000.000000000000000</double>
              </property>
-             <layout class="QGridLayout" name="gridLayout_3">
-              <item row="0" column="0">
-               <widget class="QDoubleSpinBox" name="doubleSpinBoxAngleKp">
-                <property name="enabled">
-                 <bool>true</bool>
-                </property>
-                <property name="minimumSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="sizeIncrement">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="baseSize">
-                 <size>
-                  <width>0</width>
-                  <height>0</height>
-                 </size>
-                </property>
-                <property name="buttonSymbols">
-                 <enum>QAbstractSpinBox::UpDownArrows</enum>
-                </property>
-                <property name="maximum">
-                 <double>1000000.000000000000000</double>
-                </property>
-                <property name="singleStep">
-                 <double>1.000000000000000</double>
-                </property>
-                <property name="stepType">
-                 <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             <property name="stepType">
+              <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+             </property>
             </widget>
            </item>
-           <item>
-            <widget class="QGroupBox" name="groupBox_4">
-             <property name="title">
-              <string>Ki</string>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_3">
+             <property name="text">
+              <string>Prędkość przód / tył [mrps]</string>
              </property>
-             <layout class="QGridLayout" name="gridLayout_4">
-              <item row="0" column="1">
-               <widget class="QDoubleSpinBox" name="doubleSpinBoxAngleKi">
-                <property name="maximum">
-                 <double>1000000.000000000000000</double>
-                </property>
-                <property name="stepType">
-                 <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
             </widget>
            </item>
-           <item>
-            <widget class="QGroupBox" name="groupBox_5">
-             <property name="title">
-              <string>Kd</string>
+           <item row="1" column="1">
+            <widget class="QDoubleSpinBox" name="doubleSpinBoxJoystickSpeedTurning">
+             <property name="maximum">
+              <double>100000.000000000000000</double>
              </property>
-             <layout class="QGridLayout" name="gridLayout_5">
-              <item row="0" column="0">
-               <widget class="QDoubleSpinBox" name="doubleSpinBoxAngleKd">
-                <property name="maximum">
-                 <double>1000000.000000000000000</double>
-                </property>
-                <property name="stepType">
-                 <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
-                </property>
-               </widget>
-              </item>
-             </layout>
+             <property name="stepType">
+              <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_10">
+             <property name="text">
+              <string>Prędkość lewo / prawo [mrps]</string>
+             </property>
             </widget>
            </item>
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout">
+          <layout class="QHBoxLayout" name="horizontalLayout_3">
+           <item>
+            <widget class="QPushButton" name="pushButtonJoystickSpeedsRefresh">
+             <property name="text">
+              <string>Pobierz</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pushButtonJoystickSpeedsSend">
+             <property name="text">
+              <string>Wyślij</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QGroupBox" name="groupBox_10">
+        <property name="title">
+         <string>PID kontrolujący kąt</string>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_6">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_8">
+           <item row="1" column="1">
+            <widget class="QDoubleSpinBox" name="doubleSpinBoxAngleKi">
+             <property name="maximum">
+              <double>1000000.000000000000000</double>
+             </property>
+             <property name="stepType">
+              <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_5">
+             <property name="text">
+              <string>Współczynnik Ki</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QDoubleSpinBox" name="doubleSpinBoxAngleKp">
+             <property name="enabled">
+              <bool>true</bool>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="sizeIncrement">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="baseSize">
+              <size>
+               <width>0</width>
+               <height>0</height>
+              </size>
+             </property>
+             <property name="buttonSymbols">
+              <enum>QAbstractSpinBox::UpDownArrows</enum>
+             </property>
+             <property name="maximum">
+              <double>1000000.000000000000000</double>
+             </property>
+             <property name="singleStep">
+              <double>1.000000000000000</double>
+             </property>
+             <property name="stepType">
+              <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_4">
+             <property name="text">
+              <string>Współczynnik Kp</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QDoubleSpinBox" name="doubleSpinBoxAngleKd">
+             <property name="maximum">
+              <double>1000000.000000000000000</double>
+             </property>
+             <property name="stepType">
+              <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_6">
+             <property name="text">
+              <string>Współczynnik Kd</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
            <item>
             <widget class="QPushButton" name="pushButtonAngleRefresh">
              <property name="text">
@@ -197,72 +277,59 @@
        </widget>
       </item>
       <item>
-       <widget class="QGroupBox" name="groupBox_2">
+       <widget class="QGroupBox" name="groupBox">
         <property name="title">
          <string>PID kontrolujący prędkość</string>
         </property>
-        <layout class="QVBoxLayout" name="verticalLayout_2">
+        <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <layout class="QVBoxLayout" name="verticalLayout_5">
-           <item>
-            <widget class="QLabel" name="label_3">
+          <layout class="QGridLayout" name="gridLayout_3">
+           <item row="0" column="1">
+            <widget class="QDoubleSpinBox" name="doubleSpinBoxSpeedKp">
+             <property name="decimals">
+              <number>7</number>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_7">
              <property name="text">
-              <string>TextLabel</string>
+              <string>Współczynnik Kp</string>
              </property>
             </widget>
            </item>
-           <item>
-            <widget class="QGroupBox" name="groupBox_8">
-             <property name="title">
-              <string>Kp</string>
+           <item row="1" column="0">
+            <widget class="QLabel" name="label_8">
+             <property name="text">
+              <string>Współczynnik Ki</string>
              </property>
-             <layout class="QGridLayout" name="_2">
-              <item row="0" column="0">
-               <widget class="QDoubleSpinBox" name="doubleSpinBoxSpeedKp">
-                <property name="decimals">
-                 <number>7</number>
-                </property>
-               </widget>
-              </item>
-             </layout>
             </widget>
            </item>
-           <item>
-            <widget class="QGroupBox" name="groupBox_7">
-             <property name="title">
-              <string>Ki</string>
+           <item row="1" column="1">
+            <widget class="QDoubleSpinBox" name="doubleSpinBoxSpeedKi">
+             <property name="decimals">
+              <number>7</number>
              </property>
-             <layout class="QGridLayout" name="gridLayout_6">
-              <item row="0" column="0">
-               <widget class="QDoubleSpinBox" name="doubleSpinBoxSpeedKi">
-                <property name="decimals">
-                 <number>7</number>
-                </property>
-               </widget>
-              </item>
-             </layout>
             </widget>
            </item>
-           <item>
-            <widget class="QGroupBox" name="groupBox_6">
-             <property name="title">
-              <string>Kd</string>
+           <item row="2" column="1">
+            <widget class="QDoubleSpinBox" name="doubleSpinBoxSpeedKd">
+             <property name="decimals">
+              <number>7</number>
              </property>
-             <layout class="QGridLayout" name="gridLayout_7">
-              <item row="0" column="0">
-               <widget class="QDoubleSpinBox" name="doubleSpinBoxSpeedKd">
-                <property name="decimals">
-                 <number>7</number>
-                </property>
-               </widget>
-              </item>
-             </layout>
+            </widget>
+           </item>
+           <item row="2" column="0">
+            <widget class="QLabel" name="label_9">
+             <property name="text">
+              <string>Współczynnik Kd</string>
+             </property>
             </widget>
            </item>
           </layout>
          </item>
          <item>
-          <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <layout class="QHBoxLayout" name="horizontalLayout">
            <item>
             <widget class="QPushButton" name="pushButtonSpeedRefresh">
              <property name="text">

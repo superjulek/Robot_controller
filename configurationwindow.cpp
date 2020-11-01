@@ -49,6 +49,19 @@ void ConfigurationWindow::parsedSpeedPID(PID_Coefs coefs)
     this->ui->doubleSpinBoxSpeedKd->setValue(coefs.Kd);
 }
 
+
+void ConfigurationWindow::parsedManualSpeeds(Speeds speeds)
+{
+    this->ui->doubleSpinBoxManualSpeedDriving->setValue(speeds.driving_speed);
+    this->ui->doubleSpinBoxManualSpeedTurning->setValue(speeds.turning_speed);
+}
+
+void ConfigurationWindow::parsedJoystickSpeeds(Speeds speeds)
+{
+    this->ui->doubleSpinBoxJoystickSpeedDriving->setValue(speeds.driving_speed);
+    this->ui->doubleSpinBoxJoystickSpeedTurning->setValue(speeds.turning_speed);
+}
+
 void ConfigurationWindow::on_pushButtonSpeedRefresh_clicked()
 {
     emit requestSpeedPID();
@@ -71,4 +84,31 @@ void ConfigurationWindow::on_pushButtonSpeedSend_clicked()
     coefs.Ki = this->ui->doubleSpinBoxSpeedKi->value();
     coefs.Kd = this->ui->doubleSpinBoxSpeedKd->value();
     emit updateSpeedPID(coefs);
+}
+
+void ConfigurationWindow::on_pushButtonManualSpeedsRefresh_clicked()
+{
+    emit requestManualSpeeds();
+}
+
+void ConfigurationWindow::on_pushButtonJoystickSpeedsRefresh_clicked()
+{
+    emit requestJoystickSpeeds();
+}
+
+void ConfigurationWindow::on_pushButtonManualSpeedsSend_clicked()
+{
+    Speeds speeds;
+    speeds.driving_speed = this->ui->doubleSpinBoxManualSpeedDriving->value();
+    speeds.turning_speed = this->ui->doubleSpinBoxManualSpeedTurning->value();
+    emit updateManualSpeeds(speeds);
+}
+
+void ConfigurationWindow::on_pushButtonJoystickSpeedsSend_clicked()
+{
+    Speeds speeds;
+    speeds.driving_speed = this->ui->doubleSpinBoxJoystickSpeedDriving->value();
+    speeds.turning_speed = this->ui->doubleSpinBoxJoystickSpeedTurning->value();
+    emit updateJoystickSpeeds(speeds);
+
 }

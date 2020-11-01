@@ -58,40 +58,69 @@
         <property name="title">
          <string>Kąt</string>
         </property>
-        <layout class="QGridLayout" name="gridLayout_3">
-         <item row="0" column="2">
-          <widget class="QGroupBox" name="groupBox_4">
-           <property name="title">
-            <string>Zadany</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_4">
-            <item row="0" column="0">
-             <widget class="QProgressBar" name="progressBarTargetAngle">
-              <property name="minimum">
-               <number>-12000</number>
-              </property>
-              <property name="maximum">
-               <number>12000</number>
-              </property>
-              <property name="value">
-               <number>0</number>
-              </property>
-              <property name="format">
-               <string>%v m°</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
+        <layout class="QVBoxLayout" name="verticalLayout_2">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout">
+           <item>
+            <widget class="QGroupBox" name="groupBox_4">
+             <property name="title">
+              <string>Zadany</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_4">
+              <item row="0" column="0">
+               <widget class="QProgressBar" name="progressBarTargetAngle">
+                <property name="minimum">
+                 <number>-12000</number>
+                </property>
+                <property name="maximum">
+                 <number>12000</number>
+                </property>
+                <property name="value">
+                 <number>0</number>
+                </property>
+                <property name="format">
+                 <string>%v m°</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_5">
+             <property name="title">
+              <string>Aktualny</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_5">
+              <item row="0" column="0">
+               <widget class="QProgressBar" name="progressBarAngle">
+                <property name="minimum">
+                 <number>-12000</number>
+                </property>
+                <property name="maximum">
+                 <number>12000</number>
+                </property>
+                <property name="value">
+                 <number>0</number>
+                </property>
+                <property name="format">
+                 <string>%v m°</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
          </item>
-         <item row="0" column="3">
-          <widget class="QGroupBox" name="groupBox_5">
+         <item>
+          <widget class="QGroupBox" name="groupBox_9">
            <property name="title">
-            <string>Aktualny</string>
+            <string>Różnica</string>
            </property>
-           <layout class="QGridLayout" name="gridLayout_5">
+           <layout class="QGridLayout" name="gridLayout_3">
             <item row="0" column="0">
-             <widget class="QProgressBar" name="progressBarAngle">
+             <widget class="QProgressBar" name="progressBarDiffAngle">
               <property name="minimum">
                <number>-12000</number>
               </property>
@@ -117,40 +146,69 @@
         <property name="title">
          <string>Prędkość</string>
         </property>
-        <layout class="QGridLayout" name="gridLayout_6">
-         <item row="0" column="0">
-          <widget class="QGroupBox" name="groupBox_6">
-           <property name="title">
-            <string>Zadana</string>
-           </property>
-           <layout class="QGridLayout" name="gridLayout_7">
-            <item row="0" column="0">
-             <widget class="QProgressBar" name="progressBarTargetSpeed">
-              <property name="minimum">
-               <number>-400000</number>
-              </property>
-              <property name="maximum">
-               <number>400000</number>
-              </property>
-              <property name="value">
-               <number>0</number>
-              </property>
-              <property name="format">
-               <string>%v mrps</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </widget>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QGroupBox" name="groupBox_6">
+             <property name="title">
+              <string>Zadana</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_7">
+              <item row="0" column="0">
+               <widget class="QProgressBar" name="progressBarTargetSpeed">
+                <property name="minimum">
+                 <number>-400000</number>
+                </property>
+                <property name="maximum">
+                 <number>400000</number>
+                </property>
+                <property name="value">
+                 <number>0</number>
+                </property>
+                <property name="format">
+                 <string>%v mrps</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_7">
+             <property name="title">
+              <string>Aktualna</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_8">
+              <item row="0" column="0">
+               <widget class="QProgressBar" name="progressBarSpeed">
+                <property name="minimum">
+                 <number>-400000</number>
+                </property>
+                <property name="maximum">
+                 <number>400000</number>
+                </property>
+                <property name="value">
+                 <number>0</number>
+                </property>
+                <property name="format">
+                 <string>%v mrps</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
          </item>
-         <item row="0" column="1">
-          <widget class="QGroupBox" name="groupBox_7">
+         <item>
+          <widget class="QGroupBox" name="groupBox_10">
            <property name="title">
-            <string>Aktualna</string>
+            <string>Różnica</string>
            </property>
-           <layout class="QGridLayout" name="gridLayout_8">
+           <layout class="QGridLayout" name="gridLayout_6">
             <item row="0" column="0">
-             <widget class="QProgressBar" name="progressBarSpeed">
+             <widget class="QProgressBar" name="progressBarDiffSpeed">
               <property name="minimum">
                <number>-400000</number>
               </property>

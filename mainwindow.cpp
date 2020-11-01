@@ -26,17 +26,23 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this->socket, SIGNAL(disconnected()),this, SLOT(connectionInterrupted()));
     connect(this->socket, SIGNAL(readyRead()),this, SLOT(socketReadyToRead()));
 
-    connect(this->bluetooth_communicator, SIGNAL(parsedTelemetry(Telemetry)), this, SLOT(parsedTelemetry(Telemetry)));
     connect(this->bluetooth_communicator, SIGNAL(parsedMessage(QString)), this, SLOT(parsedMessage(QString)));
     connect(this->bluetooth_communicator, SIGNAL(parsedTelemetry(Telemetry)), this->telemetry_window, SLOT(parsedTelemetry(Telemetry)));
     connect(this->bluetooth_communicator, SIGNAL(messageToSend(QByteArray)), this, SLOT(sendMessageToDevice(QByteArray)));
     connect(this->bluetooth_communicator, SIGNAL(parsedAnglePID(PID_Coefs)), this->configuration_window, SLOT(parsedAnglePID(PID_Coefs)));
     connect(this->bluetooth_communicator, SIGNAL(parsedSpeedPID(PID_Coefs)), this->configuration_window, SLOT(parsedSpeedPID(PID_Coefs)));
+    connect(this->bluetooth_communicator, SIGNAL(parsedManualSpeeds(Speeds)), this->configuration_window, SLOT(parsedManualSpeeds(Speeds)));
+    connect(this->bluetooth_communicator, SIGNAL(parsedJoystickSpeeds(Speeds)), this->configuration_window, SLOT(parsedJoystickSpeeds(Speeds)));
+    connect(this->bluetooth_communicator, SIGNAL(messageToLog(QString)), this, SLOT(messageToLog(QString)));
 
     connect(this->configuration_window, SIGNAL(requestAnglePID()), this->bluetooth_communicator, SLOT(requestAnglePID()));
     connect(this->configuration_window, SIGNAL(requestSpeedPID()), this->bluetooth_communicator, SLOT(requestSpeedPID()));
     connect(this->configuration_window, SIGNAL(updateAnglePID(PID_Coefs)), this->bluetooth_communicator, SLOT(updateAnglePID(PID_Coefs)));
     connect(this->configuration_window, SIGNAL(updateSpeedPID(PID_Coefs)), this->bluetooth_communicator, SLOT(updateSpeedPID(PID_Coefs)));
+    connect(this->configuration_window, SIGNAL(requestManualSpeeds()), this->bluetooth_communicator, SLOT(requestManualSpeeds()));
+    connect(this->configuration_window, SIGNAL(requestJoystickSpeeds()), this->bluetooth_communicator, SLOT(requestJoystickSpeeds()));
+    connect(this->configuration_window, SIGNAL(updateManualSpeeds(Speeds)), this->bluetooth_communicator, SLOT(updateManualSpeeds(Speeds)));
+    connect(this->configuration_window, SIGNAL(updateJoystickSpeeds(Speeds)), this->bluetooth_communicator, SLOT(updateJoystickSpeeds(Speeds)));
 }
 
 void MainWindow::on_pushButtonConnect_clicked()
@@ -79,6 +85,12 @@ void MainWindow::addToLogs(QString message)
 {
     QString currentDateTime = QDateTime::currentDateTime().toString("hh:mm:ss");
     ui->textEditLogs->append(currentDateTime + "\t" + message);
+}
+
+void MainWindow::addToCommunicationLogs(QString message)
+{
+    QString currentDateTime = QDateTime::currentDateTime().toString("hh:mm:ss");
+    ui->textEditCommunication->append(currentDateTime + "\t" + message);
 }
 void MainWindow::connectionEstablished() {
   this->addToLogs("Połączenie ustanowione.");
@@ -134,12 +146,18 @@ void MainWindow::on_pushButtonSteeringManual_clicked()
     this->manual_steering_window->show();
 }
 
-void MainWindow::parsedTelemetry(Telemetry)
-{
-    this->addToLogs("Otrzymano telemetrie");
-}
-
 void MainWindow::parsedMessage(QString message)
 {
-    this->addToLogs((message));
+    this->addToCommunicationLogs(message);
+}
+
+void MainWindow::on_pushButtonClearCommunication_clicked()
+{
+    this->ui->textEditCommunication->clear();
+    this->addToCommunicationLogs("Wyczyszczono.");
+}
+
+void MainWindow::messageToLog(QString message)
+{
+    this->addToLogs(message);
 }
