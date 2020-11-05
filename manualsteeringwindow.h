@@ -2,6 +2,7 @@
 #define MANUALSTEERINGWINDOW_H
 
 #include <QMainWindow>
+#include "bluetoothcommunicator.h"
 
 namespace Ui {
 class ManualSteeringWindow;
@@ -16,8 +17,21 @@ public:
     ~ManualSteeringWindow();
     void keyPressEvent(QKeyEvent *event);
 
+signals:
+    void updateRequestedRobotState(RequestedRobotState state);
+
 private slots:
     void on_pushButtonReturn_clicked();
+
+    void on_pushButtonFwd_clicked();
+
+    void on_pushButtonStop_clicked();
+
+    void on_pushButtonLeft_clicked();
+
+    void on_pushButtonRight_clicked();
+
+    void on_pushButtonBwd_clicked();
 
 private:
     Ui::ManualSteeringWindow *ui;

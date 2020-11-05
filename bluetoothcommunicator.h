@@ -2,6 +2,7 @@
 #define BLUETOOTHCOMMUNICATOR_H
 
 #include <QWidget>
+#include <QTimer>
 
 struct Telemetry {
     float TargetAngle;
@@ -27,6 +28,23 @@ struct MessageStructure {
     float data[3];
 };
 
+enum RequestedStateEnum {
+    NONE_REQUESTED,
+    ANGLE_CALIBRATING,
+    MANUAL_FWD,
+    MANUAL_BWD,
+    MANUAL_LEFT,
+    MANUAL_RIGHT,
+    MANUAL_STOP,
+    JOYSTICK_SPEED,
+};
+
+struct RequestedRobotState {
+    RequestedStateEnum state;
+    float joystick_driving_speed; // -1 -> 1
+    float joystick_turning_speed; // -1 -> 1
+};
+
 class BluetoothCommunicator : public QWidget
 {
     Q_OBJECT
@@ -37,6 +55,10 @@ public:
 
 private:
     void prepareMessageToSend (MessageStructure message);
+    QTimer *timer;
+    RequestedRobotState requested_robot_state;
+private slots:
+    void sendDriveCommand();
 
 signals:
     void parsedTelemetry (Telemetry new_telemetry);
@@ -58,6 +80,14 @@ public slots:
     void requestJoystickSpeeds();
     void updateManualSpeeds(Speeds);
     void updateJoystickSpeeds(Speeds);
+
+    void startSendingDriveCommands();
+    void stopSendingDriveCommands();
+    void updateRequestedRobotState(RequestedRobotState);
+    void startRobot();
+    void stopRobot();
+    void restartRobot();
+    void beginAngleCalibration();
 };
 
 #endif // BLUETOOTHCOMMUNICATOR_H

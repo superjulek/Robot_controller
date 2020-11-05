@@ -8,22 +8,47 @@
 #define MANUAL_SPEEDS_SIGN      0b10000100
 #define JOYSTICK_SPEEDS_SIGN    0b10000101
 
-//Communication signs - controller -> robot
+// Communication signs - controller -> robot
 #define GET_ANGLE_PID_COEFS_SIGN    0x00
 #define GET_SPEED_PID_COEFS_SIGN    0x01
-#define STOP_SIGN                   0x02
-#define START_SIGN                  0x03
-#define RESTART_SIGN                0x04
+#define STOP_ROBOT                  0x02
+#define RESTART_ROBOT               0x03
+#define START_ROBOT                 0x04
 #define SET_ANGLE_PID_COEFS_SIGN    0x05
 #define SET_SPEED_PID_COEFS_SIGN    0x06
 #define GET_MANUAL_SPEED            0x07
 #define GET_JOYSTICK_SPEED          0x08
 #define SET_MANUAL_SPEED            0x09
 #define SET_JOYSTICK_SPEED          0x0A
+#define SET_MANUAL_STOP             0x0B
+#define SET_MANUAL_FWD              0x0C
+#define SET_MANUAL_BWD              0x0D
+#define SET_MANUAL_LEFT             0x0E
+#define SET_MANUAL_RIGHT            0x0F
+#define SET_JOYSTICK_CONTROL        0x10
+#define SET_ANGLE_CALIBRATION       0x11
+
+// Sending drive commands period [ms]
+#define SEND_COMMANDS_PERIOD 250
+
+// Helper
+void clearMessageData(MessageStructure &message)
+{
+    message.data[0] = 0.0;
+    message.data[1] = 0.0;
+    message.data[2] = 0.0;
+}
 
 BluetoothCommunicator::BluetoothCommunicator()
 {
+    this->timer = new QTimer(this);
+    this->requested_robot_state = (RequestedRobotState){
+            .state = NONE_REQUESTED,
+            .joystick_driving_speed = 0.0,
+            .joystick_turning_speed = 0.0,
+};
 
+    connect(this->timer, SIGNAL(timeout()), this, SLOT(sendDriveCommand()));
 }
 
 void BluetoothCommunicator::parseReceivedBuffer(QByteArray buffer)
@@ -195,4 +220,113 @@ void BluetoothCommunicator::prepareMessageToSend(MessageStructure message)
     memcpy(byte_message, &message, sizeof(MessageStructure));
     QByteArray qbyte_array = QByteArray(byte_message, sizeof(MessageStructure));
     emit messageToSend(qbyte_array);
+}
+
+
+void BluetoothCommunicator::startSendingDriveCommands()
+{
+    this->timer->start(SEND_COMMANDS_PERIOD);
+}
+
+void BluetoothCommunicator::stopSendingDriveCommands()
+{
+    this->timer->stop();
+}
+
+void BluetoothCommunicator::sendDriveCommand()
+{
+    qDebug() << "Sending drive command";
+    MessageStructure message;
+    switch (this->requested_robot_state.state)
+    {
+    case NONE_REQUESTED:
+    {
+        return;
+    }
+    case ANGLE_CALIBRATING:
+    {
+        message.sign = SET_ANGLE_CALIBRATION;
+        clearMessageData(message);
+        break;
+    }
+    case MANUAL_FWD:
+    {
+        message.sign = SET_MANUAL_FWD;
+        clearMessageData(message);
+        break;
+    }
+    case MANUAL_BWD:
+    {
+        message.sign = SET_MANUAL_BWD;
+        clearMessageData(message);
+        break;
+    }
+    case MANUAL_LEFT:
+    {
+        message.sign = SET_MANUAL_LEFT;
+        clearMessageData(message);
+        break;
+    }
+    case MANUAL_RIGHT:
+    {
+        message.sign = SET_MANUAL_RIGHT;
+        clearMessageData(message);
+        break;
+    }
+    case MANUAL_STOP:
+    {
+        message.sign = SET_MANUAL_STOP;
+        clearMessageData(message);
+        break;
+    }
+    case JOYSTICK_SPEED:
+    {
+        message.sign = SET_JOYSTICK_CONTROL;
+        message.data[0] = this->requested_robot_state.joystick_driving_speed;
+        message.data[1] = this->requested_robot_state.joystick_turning_speed;
+        break;
+    }
+    }
+    this->prepareMessageToSend(message);
+}
+
+void BluetoothCommunicator::updateRequestedRobotState(RequestedRobotState state)
+{
+    if (state.joystick_driving_speed > 1.0) state.joystick_driving_speed = 1.0;
+    if (state.joystick_driving_speed < -1.0) state.joystick_driving_speed = -1.0;
+    if (state.joystick_turning_speed > 1.0) state.joystick_driving_speed = 1.0;
+    if (state.joystick_turning_speed < -1.0) state.joystick_driving_speed = -1.0;
+    this->requested_robot_state = state;
+}
+
+
+void BluetoothCommunicator::startRobot()
+{
+    this->requested_robot_state.state = NONE_REQUESTED;
+    MessageStructure message;
+    message.sign = START_ROBOT;
+    clearMessageData(message);
+    this->prepareMessageToSend(message);
+}
+void BluetoothCommunicator::stopRobot()
+{
+    this->requested_robot_state.state = NONE_REQUESTED;
+    MessageStructure message;
+    message.sign = STOP_ROBOT;
+    clearMessageData(message);
+    this->prepareMessageToSend(message);
+
+}
+void BluetoothCommunicator::restartRobot()
+{
+    this->requested_robot_state.state = NONE_REQUESTED;
+    MessageStructure message;
+    message.sign = RESTART_ROBOT;
+    clearMessageData(message);
+    this->prepareMessageToSend(message);
+
+}
+void BluetoothCommunicator::beginAngleCalibration()
+{
+    this->requested_robot_state.state = ANGLE_CALIBRATING;
 }

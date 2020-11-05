@@ -25,6 +25,8 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this->socket, SIGNAL(connected()),this, SLOT(connectionEstablished()));
     connect(this->socket, SIGNAL(disconnected()),this, SLOT(connectionInterrupted()));
     connect(this->socket, SIGNAL(readyRead()),this, SLOT(socketReadyToRead()));
+    connect(this->socket, SIGNAL(connected()),this->bluetooth_communicator, SLOT(startSendingDriveCommands()));
+    connect(this->socket, SIGNAL(disconnected()),this->bluetooth_communicator, SLOT(stopSendingDriveCommands()));
 
     connect(this->bluetooth_communicator, SIGNAL(parsedMessage(QString)), this, SLOT(parsedMessage(QString)));
     connect(this->bluetooth_communicator, SIGNAL(parsedTelemetry(Telemetry)), this->telemetry_window, SLOT(parsedTelemetry(Telemetry)));
@@ -43,6 +45,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this->configuration_window, SIGNAL(requestJoystickSpeeds()), this->bluetooth_communicator, SLOT(requestJoystickSpeeds()));
     connect(this->configuration_window, SIGNAL(updateManualSpeeds(Speeds)), this->bluetooth_communicator, SLOT(updateManualSpeeds(Speeds)));
     connect(this->configuration_window, SIGNAL(updateJoystickSpeeds(Speeds)), this->bluetooth_communicator, SLOT(updateJoystickSpeeds(Speeds)));
+
+    connect(this->manual_steering_window, SIGNAL(updateRequestedRobotState(RequestedRobotState)), this->bluetooth_communicator, SLOT(updateRequestedRobotState(RequestedRobotState)));
+
+    connect(this->ui->pushButtonRobotReset, SIGNAL(clicked()), this->bluetooth_communicator, SLOT(restartRobot()));
+    connect(this->ui->pushButtonRobotStop, SIGNAL(clicked()), this->bluetooth_communicator, SLOT(stopRobot()));
+    connect(this->ui->pushButtonRobotStart, SIGNAL(clicked()), this->bluetooth_communicator, SLOT(startRobot()));
+    connect(this->ui->pushButtonAngleCalibration, SIGNAL(clicked()), this->bluetooth_communicator, SLOT(beginAngleCalibration()));
 }
 
 void MainWindow::on_pushButtonConnect_clicked()

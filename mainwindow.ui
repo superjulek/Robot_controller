@@ -146,6 +146,67 @@
      </widget>
     </item>
     <item>
+     <widget class="QGroupBox" name="groupBox_5">
+      <property name="title">
+       <string>Kontrola</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_7">
+       <item row="1" column="1">
+        <widget class="QPushButton" name="pushButtonRobotStop">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>STOP ROBOT</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QPushButton" name="pushButtonRobotStart">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>START ROBOT</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <widget class="QPushButton" name="pushButtonRobotReset">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>RESET ROBOT</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QPushButton" name="pushButtonAngleCalibration">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>100</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>ANGLE CAL.</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
      <widget class="QGroupBox" name="groupBox_3">
       <property name="title">
        <string>Menu</string>
