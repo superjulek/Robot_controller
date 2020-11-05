@@ -47,6 +47,7 @@ BluetoothCommunicator::BluetoothCommunicator()
             .joystick_driving_speed = 0.0,
             .joystick_turning_speed = 0.0,
 };
+    this->launched = false;
 
     connect(this->timer, SIGNAL(timeout()), this, SLOT(sendDriveCommand()));
 }
@@ -58,7 +59,7 @@ void BluetoothCommunicator::parseReceivedBuffer(QByteArray buffer)
         this->messageToLog("Odebrano pusty bufor");
         return;
     }
-    switch ((uint8_t)buffer[0])
+    switch ((uint8_t)buffer[0] & 0b10111111) // 7th bit for state
     {
         case TELEMETRY_SIGN:
     {
@@ -70,6 +71,7 @@ void BluetoothCommunicator::parseReceivedBuffer(QByteArray buffer)
         }
         Telemetry new_telemetry;
         memcpy(&new_telemetry, buffer.constData() + 1, sizeof(Telemetry));
+        if ((uint8_t)buffer[0] & 0b01000000) this->launched = true; else this->launched = false;
         emit parsedTelemetry(new_telemetry);
         break;
 
@@ -236,6 +238,11 @@ void BluetoothCommunicator::stopSendingDriveCommands()
 void BluetoothCommunicator::sendDriveCommand()
 {
     qDebug() << "Sending drive command";
+    if (this->launched == false)
+    {
+        qDebug() << "Robot not launched";
+        return;
+    }
     MessageStructure message;
     switch (this->requested_robot_state.state)
     {

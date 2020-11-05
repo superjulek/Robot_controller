@@ -56,6 +56,7 @@ public:
 private:
     void prepareMessageToSend (MessageStructure message);
     QTimer *timer;
+    bool launched;
     RequestedRobotState requested_robot_state;
 private slots:
     void sendDriveCommand();
