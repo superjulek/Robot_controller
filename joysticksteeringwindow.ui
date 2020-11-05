@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1080</width>
+    <height>1920</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -38,11 +38,11 @@
        </spacer>
       </item>
       <item alignment="Qt::AlignHCenter">
-       <widget class="JoyPad" name="widget" native="true">
+       <widget class="JoyPad" name="joypad" native="true">
         <property name="minimumSize">
          <size>
-          <width>800</width>
-          <height>800</height>
+          <width>900</width>
+          <height>900</height>
          </size>
         </property>
        </widget>

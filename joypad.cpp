@@ -64,6 +64,7 @@ void JoyPad::setX(float value)
 
     update();
     emit xChanged(m_x);
+    emit anyChanged(m_x, m_y);
 }
 
 /**
@@ -79,6 +80,7 @@ void JoyPad::setY(float value)
 
     update();
     emit yChanged(m_y);
+    emit anyChanged(m_x, m_y);
 }
 
 void JoyPad::removeXAnimation()
@@ -270,6 +272,11 @@ void JoyPad::mouseMoveEvent(QMouseEvent *event)
     if (radius == 0) return;
     float x = ( m_knopBounds.center().x() - m_bounds.center().x() ) / radius;
     float y = (-m_knopBounds.center().y() + m_bounds.center().y() ) / radius;
+
+    if (m_x != x || m_y != y)
+    {
+        emit anyChanged(m_x, m_y);
+    }
 
     if (m_x !=x)
     {

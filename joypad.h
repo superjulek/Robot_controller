@@ -19,6 +19,7 @@ public:
 signals:
     void xChanged(float value);
     void yChanged(float value);
+    void anyChanged(float x, float y);
 
 public slots:
     void setX(float value);

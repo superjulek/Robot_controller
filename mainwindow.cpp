@@ -47,6 +47,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this->configuration_window, SIGNAL(updateJoystickSpeeds(Speeds)), this->bluetooth_communicator, SLOT(updateJoystickSpeeds(Speeds)));
 
     connect(this->manual_steering_window, SIGNAL(updateRequestedRobotState(RequestedRobotState)), this->bluetooth_communicator, SLOT(updateRequestedRobotState(RequestedRobotState)));
+    connect(this->joystick_steering_window, SIGNAL(updateRequestedRobotState(RequestedRobotState)), this->bluetooth_communicator, SLOT(updateRequestedRobotState(RequestedRobotState)));
 
     connect(this->ui->pushButtonRobotReset, SIGNAL(clicked()), this->bluetooth_communicator, SLOT(restartRobot()));
     connect(this->ui->pushButtonRobotStop, SIGNAL(clicked()), this->bluetooth_communicator, SLOT(stopRobot()));
