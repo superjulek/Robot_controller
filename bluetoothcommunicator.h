@@ -30,7 +30,6 @@ struct MessageStructure {
 
 enum RequestedStateEnum {
     NONE_REQUESTED,
-    ANGLE_CALIBRATING,
     MANUAL_FWD,
     MANUAL_BWD,
     MANUAL_LEFT,
@@ -88,7 +87,6 @@ public slots:
     void startRobot();
     void stopRobot();
     void restartRobot();
-    void beginAngleCalibration();
 };
 
 #endif // BLUETOOTHCOMMUNICATOR_H

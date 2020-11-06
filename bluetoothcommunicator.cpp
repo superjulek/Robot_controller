@@ -26,7 +26,6 @@
 #define SET_MANUAL_LEFT             0x0E
 #define SET_MANUAL_RIGHT            0x0F
 #define SET_JOYSTICK_CONTROL        0x10
-#define SET_ANGLE_CALIBRATION       0x11
 
 // Sending drive commands period [ms]
 #define SEND_COMMANDS_PERIOD 250
@@ -250,12 +249,6 @@ void BluetoothCommunicator::sendDriveCommand()
     {
         return;
     }
-    case ANGLE_CALIBRATING:
-    {
-        message.sign = SET_ANGLE_CALIBRATION;
-        clearMessageData(message);
-        break;
-    }
     case MANUAL_FWD:
     {
         message.sign = SET_MANUAL_FWD;
@@ -332,8 +325,4 @@ void BluetoothCommunicator::restartRobot()
     clearMessageData(message);
     this->prepareMessageToSend(message);
 
-}
-void BluetoothCommunicator::beginAngleCalibration()
-{
-    this->requested_robot_state.state = ANGLE_CALIBRATING;
 }
