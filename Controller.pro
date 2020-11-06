@@ -1,7 +1,7 @@
 QT       += core gui
 QT       += bluetooth
 
-greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets printsupport
 
 CONFIG += c++11
 
@@ -17,6 +17,7 @@ SOURCES += \
     mainwindow.cpp \
     joypad.cpp \
     manualsteeringwindow.cpp \
+    qcustomplot.cpp \
     telemetrywindow.cpp
 
 HEADERS += \
@@ -26,6 +27,7 @@ HEADERS += \
     mainwindow.h \
     joypad.h \
     manualsteeringwindow.h \
+    qcustomplot.h \
     telemetrywindow.h
 
 FORMS += \

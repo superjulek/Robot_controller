@@ -30,6 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     connect(this->bluetooth_communicator, SIGNAL(parsedMessage(QString)), this, SLOT(parsedMessage(QString)));
     connect(this->bluetooth_communicator, SIGNAL(parsedTelemetry(Telemetry)), this->telemetry_window, SLOT(parsedTelemetry(Telemetry)));
+    connect(this->bluetooth_communicator, SIGNAL(parsedTelemetry(Telemetry)), this->manual_steering_window, SLOT(parsedTelemetry(Telemetry)));
     connect(this->bluetooth_communicator, SIGNAL(messageToSend(QByteArray)), this, SLOT(sendMessageToDevice(QByteArray)));
     connect(this->bluetooth_communicator, SIGNAL(parsedAnglePID(PID_Coefs)), this->configuration_window, SLOT(parsedAnglePID(PID_Coefs)));
     connect(this->bluetooth_communicator, SIGNAL(parsedSpeedPID(PID_Coefs)), this->configuration_window, SLOT(parsedSpeedPID(PID_Coefs)));

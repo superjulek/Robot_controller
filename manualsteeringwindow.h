@@ -2,6 +2,7 @@
 #define MANUALSTEERINGWINDOW_H
 
 #include <QMainWindow>
+#include <QElapsedTimer>
 #include "bluetoothcommunicator.h"
 
 namespace Ui {
@@ -16,6 +17,8 @@ public:
     explicit ManualSteeringWindow(QWidget *parent = nullptr);
     ~ManualSteeringWindow();
     void keyPressEvent(QKeyEvent *event);
+public slots:
+    void parsedTelemetry(Telemetry new_telemetry);
 
 signals:
     void updateRequestedRobotState(RequestedRobotState state);
@@ -35,6 +38,8 @@ private slots:
 
 private:
     Ui::ManualSteeringWindow *ui;
+    QElapsedTimer *timer;
+    QVector<double> time, angle, target_angle, speed, target_speed;
 };
 
 #endif // MANUALSTEERINGWINDOW_H

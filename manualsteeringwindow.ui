@@ -36,6 +36,50 @@
      </spacer>
     </item>
     <item>
+     <widget class="QGroupBox" name="groupBox_2">
+      <property name="title">
+       <string>Prędkość</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_3">
+       <item row="0" column="0">
+        <widget class="QCustomPlot" name="plotSpeed" native="true">
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>600</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox">
+      <property name="title">
+       <string>Kąt</string>
+      </property>
+      <layout class="QGridLayout" name="gridLayout_2">
+       <item row="0" column="0">
+        <widget class="QCustomPlot" name="plotAngle" native="true">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>600</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="1">
        <widget class="QPushButton" name="pushButtonFwd">
@@ -48,7 +92,7 @@
         <property name="minimumSize">
          <size>
           <width>200</width>
-          <height>200</height>
+          <height>120</height>
          </size>
         </property>
         <property name="text">
@@ -67,7 +111,7 @@
         <property name="minimumSize">
          <size>
           <width>200</width>
-          <height>200</height>
+          <height>120</height>
          </size>
         </property>
         <property name="text">
@@ -86,7 +130,7 @@
         <property name="minimumSize">
          <size>
           <width>200</width>
-          <height>200</height>
+          <height>120</height>
          </size>
         </property>
         <property name="text">
@@ -105,7 +149,7 @@
         <property name="minimumSize">
          <size>
           <width>200</width>
-          <height>200</height>
+          <height>120</height>
          </size>
         </property>
         <property name="text">
@@ -124,7 +168,7 @@
         <property name="minimumSize">
          <size>
           <width>200</width>
-          <height>200</height>
+          <height>120</height>
          </size>
         </property>
         <property name="text">
@@ -144,6 +188,14 @@
    </layout>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

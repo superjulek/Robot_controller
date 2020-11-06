@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>800</width>
-    <height>600</height>
+    <height>616</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -167,7 +167,7 @@
                  <number>0</number>
                 </property>
                 <property name="format">
-                 <string>%v mrps</string>
+                 <string>%v mrpm</string>
                 </property>
                </widget>
               </item>
@@ -192,7 +192,7 @@
                  <number>0</number>
                 </property>
                 <property name="format">
-                 <string>%v mrps</string>
+                 <string>%v mrpm</string>
                 </property>
                </widget>
               </item>
@@ -219,7 +219,7 @@
                <number>0</number>
               </property>
               <property name="format">
-               <string>%v mrps</string>
+               <string>%v mrpm</string>
               </property>
              </widget>
             </item>
