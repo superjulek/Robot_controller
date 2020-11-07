@@ -10,7 +10,6 @@ JoystickSteeringWindow::JoystickSteeringWindow(QWidget *parent) :
     //this->joypad = new JoyPad(this);
     ui->setupUi(this);
     connect(ui->joypad, SIGNAL(anyChanged(float, float)), this, SLOT(onJoystickChanged(float, float)));
-    connect(ui->joypad, SIGNAL(xChanged(float)), this, SLOT(onXChanged(float)));
 }
 
 JoystickSteeringWindow::~JoystickSteeringWindow()

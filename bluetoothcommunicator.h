@@ -24,9 +24,9 @@ struct Speeds {
 };
 
 struct MessageStructure {
-    quint32 sign;
+    quint8 sign;
     float data[3];
-};
+}__packed;
 
 enum RequestedStateEnum {
     NONE_REQUESTED,
