@@ -55,7 +55,7 @@
            <item row="0" column="1">
             <widget class="QDoubleSpinBox" name="doubleSpinBoxManualSpeedDriving">
              <property name="maximum">
-              <double>400000.000000000000000</double>
+              <double>500000.000000000000000</double>
              </property>
              <property name="stepType">
               <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
@@ -65,7 +65,7 @@
            <item row="1" column="1">
             <widget class="QDoubleSpinBox" name="doubleSpinBoxManualSpeedTurning">
              <property name="maximum">
-              <double>100000.000000000000000</double>
+              <double>150000.000000000000000</double>
              </property>
              <property name="stepType">
               <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
@@ -113,7 +113,7 @@
            <item row="0" column="1">
             <widget class="QDoubleSpinBox" name="doubleSpinBoxJoystickSpeedDriving">
              <property name="maximum">
-              <double>400000.000000000000000</double>
+              <double>500000.000000000000000</double>
              </property>
              <property name="stepType">
               <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>
@@ -130,7 +130,7 @@
            <item row="1" column="1">
             <widget class="QDoubleSpinBox" name="doubleSpinBoxJoystickSpeedTurning">
              <property name="maximum">
-              <double>100000.000000000000000</double>
+              <double>150000.000000000000000</double>
              </property>
              <property name="stepType">
               <enum>QAbstractSpinBox::AdaptiveDecimalStepType</enum>

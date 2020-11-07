@@ -39,3 +39,8 @@ void JoystickSteeringWindow::onJoystickChanged(float x, float y)
     state.joystick_turning_speed = x;
     emit updateRequestedRobotState(state);
 }
+
+void JoystickSteeringWindow::parsedTelemetry(Telemetry new_telemetry)
+{
+    this->ui->progressBarSpeed->setValue(new_telemetry.Speed/1000);
+}

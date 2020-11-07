@@ -24,6 +24,8 @@ signals:
 private slots:
     void on_pushButtonReturn_clicked();
     void onJoystickChanged(float, float);
+public slots:
+    void parsedTelemetry(Telemetry new_telemetry);
 
 private:
     Ui::JoystickSteeringWindow *ui;

@@ -37,6 +37,29 @@
         </property>
        </spacer>
       </item>
+      <item>
+       <widget class="QLabel" name="label_2">
+        <property name="text">
+         <string>Speed</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QProgressBar" name="progressBarSpeed">
+        <property name="minimum">
+         <number>-600</number>
+        </property>
+        <property name="maximum">
+         <number>600</number>
+        </property>
+        <property name="value">
+         <number>0</number>
+        </property>
+        <property name="format">
+         <string>%v rpm</string>
+        </property>
+       </widget>
+      </item>
       <item alignment="Qt::AlignHCenter">
        <widget class="JoyPad" name="joypad" native="true">
         <property name="minimumSize">
