@@ -112,7 +112,7 @@ void MainWindow::connectionInterrupted() {
 }
 
 void MainWindow::socketReadyToRead() {
-    this->addToLogs("Odczytuje dane.");
+    //this->addToLogs("Odczytuje dane.");
     QByteArray rbuff = this->socket->readAll();
     //qDebug() << "Odczytano: " << rbuff << Qt::endl;
     this->bluetooth_communicator->parseReceivedBuffer(rbuff);
@@ -120,10 +120,9 @@ void MainWindow::socketReadyToRead() {
 
 void MainWindow::sendMessageToDevice(QByteArray message)
 {
-    //qDebug() << "Proba wyslania: " << message <<Qt::endl;
     if (this->socket->isOpen() && this->socket->isWritable())
     {
-        this->addToLogs("Wysyłanie wiadomości: " + message);
+        //this->addToLogs("Wysyłanie wiadomości: " + message);
         this->socket->write(message);
     }
     else

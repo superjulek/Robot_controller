@@ -7,6 +7,7 @@
 #define SPEED_PID_COEFS_SIGN    0b10000011
 #define MANUAL_SPEEDS_SIGN      0b10000100
 #define JOYSTICK_SPEEDS_SIGN    0b10000101
+#define MESSAGE_SIGN            0b10000110
 
 // Communication signs - controller -> robot
 #define GET_ANGLE_PID_COEFS_SIGN    0x00
@@ -62,7 +63,7 @@ void BluetoothCommunicator::parseReceivedBuffer(QByteArray buffer)
     {
         case TELEMETRY_SIGN:
     {
-        this->messageToLog("Odebrano telemetrie");
+        //this->messageToLog("Odebrano telemetrie");
         if ((uint)buffer.size() != sizeof(Telemetry) + 1)
         {
             this->messageToLog("Telemetria niekompletna");
@@ -125,10 +126,18 @@ void BluetoothCommunicator::parseReceivedBuffer(QByteArray buffer)
         emit parsedJoystickSpeeds(speeds);
         break;
     }
-    default:
+    case MESSAGE_SIGN:
     {
+        this->messageToLog("Odebrano wiadomość");
+        buffer.remove(0,1);
         QString message = QString(buffer);
         emit parsedMessage(message);
+        break;
+
+    }
+    default:
+    {
+        this->messageToLog("Otrzymano błędny bufor");
         break;
     }
     }
