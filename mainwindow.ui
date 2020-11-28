@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>540</width>
-    <height>960</height>
+    <height>1088</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -177,7 +177,7 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0">
+       <item row="2" column="0" colspan="2">
         <widget class="QPushButton" name="pushButtonRobotReset">
          <property name="minimumSize">
           <size>
@@ -187,19 +187,6 @@
          </property>
          <property name="text">
           <string>RESET ROBOT</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QPushButton" name="pushButtonAngleCalibration">
-         <property name="minimumSize">
-          <size>
-           <width>0</width>
-           <height>100</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>ANGLE CAL.</string>
          </property>
         </widget>
        </item>
