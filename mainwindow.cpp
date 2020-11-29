@@ -54,6 +54,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this->ui->pushButtonRobotReset, SIGNAL(clicked()), this->bluetooth_communicator, SLOT(restartRobot()));
     connect(this->ui->pushButtonRobotStop, SIGNAL(clicked()), this->bluetooth_communicator, SLOT(stopRobot()));
     connect(this->ui->pushButtonRobotStart, SIGNAL(clicked()), this->bluetooth_communicator, SLOT(startRobot()));
+    connect(this->ui->pushButtonAngCorr, SIGNAL(clicked()), this->bluetooth_communicator, SLOT(toggleAngleCorrection()));
 }
 
 void MainWindow::on_pushButtonConnect_clicked()

@@ -87,6 +87,7 @@ public slots:
     void startRobot();
     void stopRobot();
     void restartRobot();
+    void toggleAngleCorrection();
 };
 
 #endif // BLUETOOTHCOMMUNICATOR_H

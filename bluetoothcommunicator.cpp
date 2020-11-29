@@ -27,6 +27,7 @@
 #define SET_MANUAL_LEFT             0x0E
 #define SET_MANUAL_RIGHT            0x0F
 #define SET_JOYSTICK_CONTROL        0x10
+#define TOGGLE_ANGLE_CORRECTION      0x11
 
 // Sending drive commands period [ms]
 #define SEND_COMMANDS_PERIOD 250
@@ -334,4 +335,11 @@ void BluetoothCommunicator::restartRobot()
     clearMessageData(message);
     this->prepareMessageToSend(message);
 
+}
+void BluetoothCommunicator::toggleAngleCorrection()
+{
+    MessageStructure message;
+    message.sign = TOGGLE_ANGLE_CORRECTION;
+    clearMessageData(message);
+    this->prepareMessageToSend(message);
 }
