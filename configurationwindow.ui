@@ -170,7 +170,7 @@
       <item>
        <widget class="QGroupBox" name="groupBox_10">
         <property name="title">
-         <string>PID kontrolujący kąt</string>
+         <string>PID sterujący kątem</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_6">
          <item>
@@ -279,7 +279,7 @@
       <item>
        <widget class="QGroupBox" name="groupBox">
         <property name="title">
-         <string>PID kontrolujący prędkość</string>
+         <string>PID sterujący prędkością</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
