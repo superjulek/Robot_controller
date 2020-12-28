@@ -28,7 +28,7 @@ ManualSteeringWindow::ManualSteeringWindow(QWidget *parent) :
     ui->plotAngle->xAxis->setLabel("CZAS [ms]");
     ui->plotAngle->yAxis->setLabel("KĄT [°]");
     ui->plotAngle->xAxis->setRange(-5000, 0);
-    ui->plotAngle->yAxis->setRange(-4.2, 4.2);
+    ui->plotAngle->yAxis->setRange(-11, 11);
     ui->plotAngle->replot();
 
     ui->plotSpeed->legend->setVisible(true);
@@ -42,7 +42,7 @@ ManualSteeringWindow::ManualSteeringWindow(QWidget *parent) :
     ui->plotSpeed->xAxis->setLabel("CZAS [ms]");
     ui->plotSpeed->yAxis->setLabel("PRĘDKOŚĆ [rpm]");
     ui->plotSpeed->xAxis->setRange(-5000, 0);
-    ui->plotSpeed->yAxis->setRange(-600, 600);
+    ui->plotSpeed->yAxis->setRange(-320, 320);
     ui->plotSpeed->replot();
     ///
 }
